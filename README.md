@@ -1,0 +1,2 @@
+# trapperkeeper-mvc
+Trapper Keeper is a brand of loose-leaf binder created by Mead. Popular with students in the United States, Canada and parts of Latin America from the 1970s to the 1990s, it featured sliding plastic rings (instead of standard snap-closed metal binder rings), folders, and pockets to keep schoolwork and papers, and a wrap around flap with a Velcro closure (originally a metal snap closure).
