@@ -12,4 +12,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Finances\" />
+    <Folder Include="Views\Achievements\" />
+    <Folder Include="Views\Fitness\" />
+    <Folder Include="Views\Journal\" />
+    <Folder Include="Views\Library\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Home\Privacy.cshtml" />
+  </ItemGroup>
 </Project>
