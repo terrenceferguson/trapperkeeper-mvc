@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using trapperkeeper_mvc.DAL;
 using trapperkeeper_mvc.Models;
 
 namespace trapperkeeper_mvc.Controllers
@@ -12,11 +14,13 @@ namespace trapperkeeper_mvc.Controllers
     {
         public IActionResult Index()
         {
+
             return View();
         }
 
         public IActionResult About()
         {
+
             return View();
         }
 

@@ -10,6 +10,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
+    <PackageReference Include="MySql.Data" Version="8.0.16" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +21,8 @@
     <Folder Include="Views\Fitness\" />
     <Folder Include="Views\Journal\" />
     <Folder Include="Views\Library\" />
+    <Folder Include="DAL\" />
+    <Folder Include="Models\Finances\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Home\Privacy.cshtml" />
