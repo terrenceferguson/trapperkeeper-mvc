@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using trapperkeeper_mvc.Models;
 using trapperkeeper_mvc.Models.Finances;
 
 namespace trapperkeeper_mvc.Controllers
@@ -12,21 +13,20 @@ namespace trapperkeeper_mvc.Controllers
 
         public IActionResult CreateNewLedger()
         {
-            using (var context = new FinancesContext())
+            using (var context = new DatabaseContext())
             {
                 var ledger = new TransactionLedger
                 {
-                    ID = 1,
                     Date = DateTime.Now,
-                    Description = "Here we go!"
+                    Description = $"{Guid.NewGuid()}"
                 };
 
-                context.TransactionLedgers.Add(ledger);
+                context.TransactionLedger.Add(ledger);
 
                 context.SaveChanges();
-            } 
+            }
 
-            return Content($"Well, I think it worked.");
+            return RedirectToAction(nameof(FinancesController.Index));
         }
     }
 }
