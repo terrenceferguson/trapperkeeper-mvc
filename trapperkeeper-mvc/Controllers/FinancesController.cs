@@ -1,30 +1,29 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using trapperkeeper_mvc.Models;
 using trapperkeeper_mvc.Models.Finances;
 
 namespace trapperkeeper_mvc.Controllers
 {
-    public class FinancesController : Controller
+    public class FinancesController : BaseController
     {
         public FinancesController() { }
 
-        public IActionResult Index() => View();
+        public IActionResult Index()
+            => View(db.TransactionLedger.ToList());
 
         public IActionResult CreateNewLedger()
         {
-            using (var context = new DatabaseContext())
+            var ledger = new TransactionLedger
             {
-                var ledger = new TransactionLedger
-                {
-                    Date = DateTime.Now,
-                    Description = $"{Guid.NewGuid()}"
-                };
+                Date = DateTime.Now,
+                Description = $"{Guid.NewGuid()}"
+            };
 
-                context.TransactionLedger.Add(ledger);
-
-                context.SaveChanges();
-            }
+            db.TransactionLedger.Add(ledger);
+            db.SaveChanges();
 
             return RedirectToAction(nameof(FinancesController.Index));
         }
