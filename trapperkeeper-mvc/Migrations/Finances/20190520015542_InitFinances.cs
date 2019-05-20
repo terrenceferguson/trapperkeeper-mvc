@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace trapperkeeper_mvc.Migrations
+namespace trapperkeeper_mvc.Migrations.Finances
 {
-    public partial class InitialCreate : Migration
+    public partial class InitFinances : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

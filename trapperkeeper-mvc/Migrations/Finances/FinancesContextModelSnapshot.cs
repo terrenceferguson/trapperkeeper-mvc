@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using trapperkeeper_mvc.Models;
 
-namespace trapperkeeper_mvc.Migrations
+namespace trapperkeeper_mvc.Migrations.Finances
 {
-    [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(FinancesContext))]
+    partial class FinancesContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -17,7 +17,7 @@ namespace trapperkeeper_mvc.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("trapperkeeper_mvc.Models.Finances.TransactionEntry", b =>
+            modelBuilder.Entity("trapperkeeper_mvc.Models.TransactionEntry", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -43,7 +43,7 @@ namespace trapperkeeper_mvc.Migrations
                     b.ToTable("TransactionEntry");
                 });
 
-            modelBuilder.Entity("trapperkeeper_mvc.Models.Finances.TransactionLedger", b =>
+            modelBuilder.Entity("trapperkeeper_mvc.Models.TransactionLedger", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -59,9 +59,9 @@ namespace trapperkeeper_mvc.Migrations
                     b.ToTable("TransactionLedger");
                 });
 
-            modelBuilder.Entity("trapperkeeper_mvc.Models.Finances.TransactionEntry", b =>
+            modelBuilder.Entity("trapperkeeper_mvc.Models.TransactionEntry", b =>
                 {
-                    b.HasOne("trapperkeeper_mvc.Models.Finances.TransactionLedger", "TransactionLedger")
+                    b.HasOne("trapperkeeper_mvc.Models.TransactionLedger", "TransactionLedger")
                         .WithMany("Transactions")
                         .HasForeignKey("TransactionLedgerID");
                 });
