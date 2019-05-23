@@ -14,10 +14,28 @@ namespace trapperkeeper_mvc.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            var accounts = new[] { "Discover", "Arrival Plus", "Uber", "Chase" };
+            var accounts = new[] { "Discover", "Arrival Plus", "Uber", "Chase", "Ally Checking" };
             var categories = new[] { "Fixed", "Flexible", "Variable", "Debt" };
+            var subcats = new[] 
+            {
+                "Entertainment",
+                "Restaurants",
+                "Groceries",
+                "Gasoline",
+                "Booze",
+                "Professional",
+                "Health",
+                "Clothing",
+                "Gifts",
+                "Car",
+                "Home",
+                "Fees",
+                "Dog",
+                "Subscriptions"
+            };
             modelBuilder.Entity<Account>().HasData(accounts.Select(a => new Account{ ID = accounts.ToList().IndexOf(a) + 1, Description = a}));
             modelBuilder.Entity<Category>().HasData(categories.Select(c => new Category{ ID = categories.ToList().IndexOf(c) + 1, Description = c}));
+            modelBuilder.Entity<Subcategory>().HasData(subcats.Select(s => new Subcategory{ ID = subcats.ToList().IndexOf(s) + 1, Description = s}));
 
             modelBuilder.Entity<TransactionLedger>(entity =>
             {
