@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using trapperkeeper_mvc.Models;
 
 namespace trapperkeeper_mvc.Migrations.Finances
 {
     [DbContext(typeof(FinancesContext))]
-    partial class FinancesContextModelSnapshot : ModelSnapshot
+    [Migration("20190523024255_TransactionValidation")]
+    partial class TransactionValidation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,28 +29,6 @@ namespace trapperkeeper_mvc.Migrations.Finances
                     b.HasKey("ID");
 
                     b.ToTable("Account");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Description = "Discover"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Description = "Arrival Plus"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Description = "Uber"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Description = "Chase"
-                        });
                 });
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.Category", b =>
@@ -61,28 +41,6 @@ namespace trapperkeeper_mvc.Migrations.Finances
                     b.HasKey("ID");
 
                     b.ToTable("Category");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Description = "Fixed"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Description = "Flexible"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Description = "Variable"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Description = "Debt"
-                        });
                 });
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.Subcategory", b =>
@@ -148,15 +106,15 @@ namespace trapperkeeper_mvc.Migrations.Finances
             modelBuilder.Entity("trapperkeeper_mvc.Models.TransactionEntry", b =>
                 {
                     b.HasOne("trapperkeeper_mvc.Models.Account", "Account")
-                        .WithMany("TransactionEntries")
+                        .WithMany()
                         .HasForeignKey("AccountID");
 
                     b.HasOne("trapperkeeper_mvc.Models.Category", "Category")
-                        .WithMany("TransactionEntries")
+                        .WithMany()
                         .HasForeignKey("CategoryID");
 
                     b.HasOne("trapperkeeper_mvc.Models.Subcategory", "Subcategory")
-                        .WithMany("TransactionEntries")
+                        .WithMany()
                         .HasForeignKey("SubcategoryID");
 
                     b.HasOne("trapperkeeper_mvc.Models.TransactionLedger", "TransactionLedger")

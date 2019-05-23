@@ -33,12 +33,15 @@ namespace trapperkeeper_mvc
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // This is just a test of Dependency Injection. -TF
+            services.AddSingleton<IDateTime, SystemDateTime>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<FinancesContext>(options => 
+            services.AddDbContext<FinancesContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("Finances"))
             );
-            services.AddDbContext<LibraryContext>(options => 
+            services.AddDbContext<LibraryContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("Library"))
             );
         }
@@ -68,5 +71,15 @@ namespace trapperkeeper_mvc
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+    }
+
+    public class SystemDateTime : IDateTime
+    {
+        public DateTime Now => DateTime.Now;
+    }
+
+    public interface IDateTime
+    {
+        DateTime Now { get; }
     }
 }

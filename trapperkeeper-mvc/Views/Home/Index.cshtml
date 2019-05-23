@@ -1,9 +1,47 @@
-﻿@{
+﻿@model trapperkeeper_mvc.IDateTime
+
+@{
     ViewData["Title"] = "Home Page";
 }
+
+<style>
+    .red {
+        background-color: red;
+    }
+    .blue {
+        background-color: blue;
+    }
+    .white {
+        background-color: whitesmoke;
+    }
+</style>
 
 <div class="text-center">
     <h1 class="display-4">Welcome, Comrade.</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <p>Soon we build app for bread line.</p>
+
+    <div class="row">
+        <div class="col-md red">
+            Red
+        </div>
+        <div class="col-md white">
+            White
+        </div>
+        <div class="col-md blue">
+            Blue
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md">
+            <p>Here is the current datetime from a singleton dependency injection.</p>
+        </div>
+        <div class="col-md">
+            @Model.Now
+        </div>
+        <div class="col-md">
+            Q( ' ' Q)
+        </div>
+    </div>
 </div>

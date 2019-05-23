@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using trapperkeeper_mvc.Models;
 
@@ -7,7 +8,31 @@ namespace trapperkeeper_mvc.Models
 {
     public class FinancesContext : DbContext
     {
-        public FinancesContext(DbContextOptions<FinancesContext> options) : base(options) {}
+        public FinancesContext(DbContextOptions<FinancesContext> options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            var accounts = new[] { "Discover", "Arrival Plus", "Uber", "Chase" };
+            var categories = new[] { "Fixed", "Flexible", "Variable", "Debt" };
+            modelBuilder.Entity<Account>().HasData(accounts.Select(a => new Account{ ID = accounts.ToList().IndexOf(a) + 1, Description = a}));
+            modelBuilder.Entity<Category>().HasData(categories.Select(c => new Category{ ID = categories.ToList().IndexOf(c) + 1, Description = c}));
+
+            modelBuilder.Entity<TransactionLedger>(entity =>
+            {
+                entity.HasKey(e => e.ID);
+                entity.Property(e => e.Date).IsRequired();
+            });
+
+            modelBuilder.Entity<TransactionEntry>(entity =>
+            {
+                entity.HasKey(e => e.ID);
+                entity.Property(e => e.Date).IsRequired();
+
+                entity.HasOne(d => d.TransactionLedger);
+            });
+        }
 
         public DbSet<TransactionLedger> TransactionLedger { get; set; }
         public DbSet<TransactionEntry> TransactionEntry { get; set; }
@@ -20,19 +45,45 @@ namespace trapperkeeper_mvc.Models
         public string Description { get; set; }
         public int Total { get; set; }
 
-        public virtual ICollection<TransactionEntry> Transactions { get; set; }
+        public ICollection<TransactionEntry> Transactions { get; set; }
     }
 
     public class TransactionEntry
     {
         public int ID { get; set; }
         public DateTime Date { get; set; }
-        public int AccountID { get; set; }
-        public int CategoryID { get; set; }
-        public int SubcategoryID { get; set; }
+
+        public Account Account { get; set; }
+        public Category Category { get; set; }
+        public Subcategory Subcategory { get; set; }
+
         public string Description { get; set; }
         public decimal Amount { get; set; }
 
-        public virtual TransactionLedger TransactionLedger { get; set; }
+        public TransactionLedger TransactionLedger { get; set; }
+    }
+
+    public class Account
+    {
+        public int ID { get; set; }
+        public string Description { get; set; }
+
+        public ICollection<TransactionEntry> TransactionEntries { get; set; }
+    }
+
+    public class Category
+    {
+        public int ID { get; set; }
+        public string Description { get; set; }
+
+        public ICollection<TransactionEntry> TransactionEntries { get; set; }
+    }
+
+    public class Subcategory
+    {
+        public int ID { get; set; }
+        public string Description { get; set; }
+
+        public ICollection<TransactionEntry> TransactionEntries { get; set; }
     }
 }
