@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using trapperkeeper_mvc.Models;
 
 namespace trapperkeeper_mvc.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20190520021359_InitLibrary")]
-    partial class InitLibrary
+    partial class LibraryContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,19 +19,19 @@ namespace trapperkeeper_mvc.Migrations
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.Author", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("AuthorID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
 
-                    b.HasKey("ID");
+                    b.HasKey("AuthorID");
 
                     b.ToTable("Author");
                 });
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.Book", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("BookID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AuthorID");
@@ -48,7 +46,7 @@ namespace trapperkeeper_mvc.Migrations
 
                     b.Property<decimal?>("Value");
 
-                    b.HasKey("ID");
+                    b.HasKey("BookID");
 
                     b.HasIndex("AuthorID");
 

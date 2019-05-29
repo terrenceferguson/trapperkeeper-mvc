@@ -14,7 +14,7 @@ namespace trapperkeeper_mvc.Models
 
     public class Author
     {
-        public int ID { get; set; }
+        public int AuthorID { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<Book> Books { get; set; }
@@ -22,7 +22,7 @@ namespace trapperkeeper_mvc.Models
 
         public class Book
     {
-        public int ID { get; set; }
+        public int BookID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string ISBN { get; set; }

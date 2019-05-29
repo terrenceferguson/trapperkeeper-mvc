@@ -9,8 +9,8 @@ using trapperkeeper_mvc.Models;
 namespace trapperkeeper_mvc.Migrations.Finances
 {
     [DbContext(typeof(FinancesContext))]
-    [Migration("20190523032519_TransactionValidation_v2")]
-    partial class TransactionValidation_v2
+    [Migration("20190529021649_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,87 +21,164 @@ namespace trapperkeeper_mvc.Migrations.Finances
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.Account", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("AccountID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
-                    b.HasKey("ID");
+                    b.HasKey("AccountID");
 
                     b.ToTable("Account");
 
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            AccountID = 1,
                             Description = "Discover"
                         },
                         new
                         {
-                            ID = 2,
+                            AccountID = 2,
                             Description = "Arrival Plus"
                         },
                         new
                         {
-                            ID = 3,
+                            AccountID = 3,
                             Description = "Uber"
                         },
                         new
                         {
-                            ID = 4,
+                            AccountID = 4,
                             Description = "Chase"
+                        },
+                        new
+                        {
+                            AccountID = 5,
+                            Description = "Ally Checking"
                         });
                 });
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.Category", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("CategoryID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
-                    b.HasKey("ID");
+                    b.HasKey("CategoryID");
 
                     b.ToTable("Category");
 
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            CategoryID = 1,
                             Description = "Fixed"
                         },
                         new
                         {
-                            ID = 2,
+                            CategoryID = 2,
                             Description = "Flexible"
                         },
                         new
                         {
-                            ID = 3,
+                            CategoryID = 3,
                             Description = "Variable"
                         },
                         new
                         {
-                            ID = 4,
+                            CategoryID = 4,
                             Description = "Debt"
                         });
                 });
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.Subcategory", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("SubcategoryID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
-                    b.HasKey("ID");
+                    b.HasKey("SubcategoryID");
 
                     b.ToTable("Subcategory");
+
+                    b.HasData(
+                        new
+                        {
+                            SubcategoryID = 1,
+                            Description = "Entertainment"
+                        },
+                        new
+                        {
+                            SubcategoryID = 2,
+                            Description = "Restaurants"
+                        },
+                        new
+                        {
+                            SubcategoryID = 3,
+                            Description = "Groceries"
+                        },
+                        new
+                        {
+                            SubcategoryID = 4,
+                            Description = "Gasoline"
+                        },
+                        new
+                        {
+                            SubcategoryID = 5,
+                            Description = "Booze"
+                        },
+                        new
+                        {
+                            SubcategoryID = 6,
+                            Description = "Professional"
+                        },
+                        new
+                        {
+                            SubcategoryID = 7,
+                            Description = "Health"
+                        },
+                        new
+                        {
+                            SubcategoryID = 8,
+                            Description = "Clothing"
+                        },
+                        new
+                        {
+                            SubcategoryID = 9,
+                            Description = "Gifts"
+                        },
+                        new
+                        {
+                            SubcategoryID = 10,
+                            Description = "Car"
+                        },
+                        new
+                        {
+                            SubcategoryID = 11,
+                            Description = "Home"
+                        },
+                        new
+                        {
+                            SubcategoryID = 12,
+                            Description = "Fees"
+                        },
+                        new
+                        {
+                            SubcategoryID = 13,
+                            Description = "Dog"
+                        },
+                        new
+                        {
+                            SubcategoryID = 14,
+                            Description = "Subscriptions"
+                        });
                 });
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.TransactionEntry", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("TransactionEntryID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AccountID");
@@ -118,7 +195,7 @@ namespace trapperkeeper_mvc.Migrations.Finances
 
                     b.Property<int?>("TransactionLedgerID");
 
-                    b.HasKey("ID");
+                    b.HasKey("TransactionEntryID");
 
                     b.HasIndex("AccountID");
 
@@ -133,7 +210,7 @@ namespace trapperkeeper_mvc.Migrations.Finances
 
             modelBuilder.Entity("trapperkeeper_mvc.Models.TransactionLedger", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("TransactionLedgerID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Date");
@@ -142,7 +219,7 @@ namespace trapperkeeper_mvc.Migrations.Finances
 
                     b.Property<int>("Total");
 
-                    b.HasKey("ID");
+                    b.HasKey("TransactionLedgerID");
 
                     b.ToTable("TransactionLedger");
                 });

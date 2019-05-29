@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using trapperkeeper_mvc.Models;
 
@@ -14,9 +15,24 @@ namespace trapperkeeper_mvc.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            var accounts = new[] { "Discover", "Arrival Plus", "Uber", "Chase", "Ally Checking" };
-            var categories = new[] { "Fixed", "Flexible", "Variable", "Debt" };
-            var subcats = new[] 
+            var accounts = new[]
+            {
+                "Discover",
+                "Arrival Plus",
+                "Uber",
+                "Chase",
+                "Ally Checking"
+             };
+
+            var categories = new[]
+            {
+                "Fixed",
+                "Flexible",
+                "Variable",
+                "Debt"
+             };
+
+            var subcats = new[]
             {
                 "Entertainment",
                 "Restaurants",
@@ -33,19 +49,34 @@ namespace trapperkeeper_mvc.Models
                 "Dog",
                 "Subscriptions"
             };
-            modelBuilder.Entity<Account>().HasData(accounts.Select(a => new Account{ ID = accounts.ToList().IndexOf(a) + 1, Description = a}));
-            modelBuilder.Entity<Category>().HasData(categories.Select(c => new Category{ ID = categories.ToList().IndexOf(c) + 1, Description = c}));
-            modelBuilder.Entity<Subcategory>().HasData(subcats.Select(s => new Subcategory{ ID = subcats.ToList().IndexOf(s) + 1, Description = s}));
+
+            modelBuilder.Entity<Account>().HasData(accounts.Select(a => new Account
+            {
+                AccountID = accounts.ToList().IndexOf(a) + 1,
+                Description = a
+            }));
+
+            modelBuilder.Entity<Category>().HasData(categories.Select(c => new Category
+            {
+                CategoryID = categories.ToList().IndexOf(c) + 1,
+                Description = c
+            }));
+
+            modelBuilder.Entity<Subcategory>().HasData(subcats.Select(s => new Subcategory
+            {
+                SubcategoryID = subcats.ToList().IndexOf(s) + 1,
+                Description = s
+            }));
 
             modelBuilder.Entity<TransactionLedger>(entity =>
             {
-                entity.HasKey(e => e.ID);
+                entity.HasKey(e => e.TransactionLedgerID);
                 entity.Property(e => e.Date).IsRequired();
             });
 
             modelBuilder.Entity<TransactionEntry>(entity =>
             {
-                entity.HasKey(e => e.ID);
+                entity.HasKey(e => e.TransactionEntryID);
                 entity.Property(e => e.Date).IsRequired();
 
                 entity.HasOne(d => d.TransactionLedger);
@@ -54,11 +85,14 @@ namespace trapperkeeper_mvc.Models
 
         public DbSet<TransactionLedger> TransactionLedger { get; set; }
         public DbSet<TransactionEntry> TransactionEntry { get; set; }
+        public DbSet<Account> Account { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Subcategory> Subcategory { get; set; }
     }
 
     public class TransactionLedger
     {
-        public int ID { get; set; }
+        public int TransactionLedgerID { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public int Total { get; set; }
@@ -68,7 +102,7 @@ namespace trapperkeeper_mvc.Models
 
     public class TransactionEntry
     {
-        public int ID { get; set; }
+        public int TransactionEntryID { get; set; }
         public DateTime Date { get; set; }
 
         public Account Account { get; set; }
@@ -83,7 +117,7 @@ namespace trapperkeeper_mvc.Models
 
     public class Account
     {
-        public int ID { get; set; }
+        public int AccountID { get; set; }
         public string Description { get; set; }
 
         public ICollection<TransactionEntry> TransactionEntries { get; set; }
@@ -91,7 +125,7 @@ namespace trapperkeeper_mvc.Models
 
     public class Category
     {
-        public int ID { get; set; }
+        public int CategoryID { get; set; }
         public string Description { get; set; }
 
         public ICollection<TransactionEntry> TransactionEntries { get; set; }
@@ -99,9 +133,15 @@ namespace trapperkeeper_mvc.Models
 
     public class Subcategory
     {
-        public int ID { get; set; }
+        public int SubcategoryID { get; set; }
         public string Description { get; set; }
 
         public ICollection<TransactionEntry> TransactionEntries { get; set; }
+    }
+
+    // Beginning FluentValidation. I'll integrate it later. -TF
+    public class TransactionLedgerValidator : AbstractValidator<TransactionLedger>
+    {
+
     }
 }
