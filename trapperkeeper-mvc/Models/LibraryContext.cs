@@ -8,6 +8,21 @@ namespace trapperkeeper_mvc.Models
     {
         public LibraryContext(DbContextOptions<LibraryContext> options) : base(options) {}
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Author>(entity =>
+            {
+                entity.Property(e => e.Name).IsRequired();
+            });
+
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity.Property(e => e.Title).IsRequired();
+            });
+        }
+
         public DbSet<Author> Author { get; set; }
         public DbSet<Book> Book { get; set; }
     }
